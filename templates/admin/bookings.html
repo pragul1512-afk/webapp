@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Manage Bookings - Admin{% endblock %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Bookings</h1>
+    <div>
+      <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary">Dashboard</a>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light"><tr><th>ID</th><th>Customer</th><th>Table</th><th>Date</th><th>Time</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody>
+        {% for booking in bookings %}
+          <tr>
+            <td>{{ booking.id }}</td>
+            <td>{{ booking.user.name }}</td>
+            <td>{{ booking.table.table_number }}</td>
+            <td>{{ booking.booking_date.strftime('%Y-%m-%d') }}</td>
+            <td>{{ booking.booking_time.strftime('%H:%M') }}</td>
+            <td>{{ booking.status }}</td>
+            <td>
+              <form class="d-inline" method="post" action="{{ url_for('admin.booking_action', booking_id=booking.id) }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button name="action" value="approve" class="btn btn-sm btn-success">Approve</button>
+                <button name="action" value="reject" class="btn btn-sm btn-danger">Reject</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

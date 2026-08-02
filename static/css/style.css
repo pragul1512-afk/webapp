@@ -1,0 +1,36 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex: 1;
+}
+.hero {
+  border-radius: 0.75rem;
+}
+.card img {
+  max-height: 220px;
+  object-fit: cover;
+}
+.image-placeholder {
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  color: #6b7280;
+  border: 1px dashed #d1d5db;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 1rem;
+}
+footer {  position: relative;
+}
+.btn-outline-primary {
+  transition: transform 0.15s ease;
+}
+.btn-outline-primary:hover {
+  transform: translateY(-1px);
+}

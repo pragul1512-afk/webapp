@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Cart - Restaurant System{% endblock %}
+{% block content %}
+  <h1>Your Cart</h1>
+  {% if cart_items %}
+    <div class="table-responsive mt-3">
+      <table class="table align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Dish</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cart in cart_items %}
+            <tr>
+              <td>{{ cart.item.name }}</td>
+              <td>{{ cart.item.price|format_currency }}</td>
+              <td>
+                <form method="post" action="{{ url_for('main.update_cart', item_id=cart.item.id) }}" class="d-flex gap-2 align-items-center">
+                  <input class="form-control form-control-sm" name="quantity" value="{{ cart.quantity }}" style="width: 80px;" min="1" type="number">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button class="btn btn-sm btn-secondary" type="submit">Update</button>
+                </form>
+              </td>
+              <td>{{ (cart.quantity * cart.item.price)|format_currency }}</td>
+              <td>
+                <form method="post" action="{{ url_for('main.remove_cart_item', item_id=cart.item.id) }}">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button class="btn btn-sm btn-danger">Remove</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+          <tr class="fw-bold">
+            <td colspan="3" class="text-end">Subtotal:</td>
+            <td>{{ subtotal|format_currency }}</td>
+            <td></td>
+          </tr>
+          <tr class="fw-bold">
+            <td colspan="3" class="text-end">Tax (8%):</td>
+            <td>{{ tax|format_currency }}</td>
+            <td></td>
+          </tr>
+          <tr class="table-active fw-bold">
+            <td colspan="3" class="text-end">Total:</td>
+            <td>{{ total|format_currency }}</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <a class="btn btn-primary" href="{{ url_for('main.checkout') }}">Proceed to Checkout</a>
+  {% else %}
+    <div class="alert alert-info">Your cart is currently empty. Add menu items to continue.</div>
+  {% endif %}
+{% endblock %}

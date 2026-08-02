@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Book a Table - Restaurant System{% endblock %}
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title mb-3">Reserve your table</h2>
+          <form method="post">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">{{ form.guests.label(class_='form-label') }}{{ form.guests(class_='form-control') }}</div>
+            <div class="mb-3">{{ form.booking_date.label(class_='form-label') }}{{ form.booking_date(class_='form-control') }}</div>
+            <div class="mb-3">{{ form.booking_time.label(class_='form-label') }}{{ form.booking_time(class_='form-control') }}</div>
+            <div class="mb-3">{{ form.special_request.label(class_='form-label') }}{{ form.special_request(class_='form-control', rows=3) }}</div>
+            <button type="submit" class="btn btn-primary w-100">Reserve Table</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Checkout - Restaurant System{% endblock %}
+{% block content %}
+  <div class="row">
+    <div class="col-lg-7">
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h3>Order Summary</h3>
+          <ul class="list-group list-group-flush">
+            {% for cart in cart_items %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>{{ cart.item.name }}</strong>
+                  <div class="text-muted">{{ cart.quantity }} x {{ cart.item.price|format_currency }}</div>
+                </div>
+                <span>{{ (cart.quantity * cart.item.price)|format_currency }}</span>
+              </li>
+            {% endfor %}
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Subtotal</span>
+              <strong>{{ subtotal|format_currency }}</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Tax (8%)</span>
+              <strong>{{ tax|format_currency }}</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between fw-bold">
+              <span>Total</span>
+              <strong>{{ total|format_currency }}</strong>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h3>Payment</h3>
+          <form method="post">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">{{ form.method.label(class_='form-label') }}<br>{{ form.method(class_='form-check-input me-2') }}</div>
+            <button class="btn btn-success w-100" type="submit">Place Order</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

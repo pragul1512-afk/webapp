@@ -1,0 +1,71 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <h1 class ="a"> ragul  python developer</h1>
+    <img src="{% static 'img/ragul.png.jpg' %}" alt="">
+    <img src="{% static 'img/ragul.png.jpg '%}">
+    <h2 class="bg-danger">Innovel</h2>
+</body>
+</html> -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bistro Delight Booking & Orders</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Bistro Delight</h1>
+    </header>
+
+    <main class="container">
+        <!-- Section: Booking Form -->
+        <section class="booking-section">
+            <h2>Reserve a Table</h2>
+            <form action="{% url 'book_table' %}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="number" name="guests" placeholder="Guests Count" required>
+                <input type="date" name="date" required>
+                <input type="time" name="time" required>
+                <button type="submit" class="btn">Confirm Booking</button>
+            </form>
+        </section>
+
+        <!-- Section: Food ordering menu cards -->
+        <section class="menu-section">
+            <h2>Order Food Online</h2>
+            <div class="menu-grid">
+                {% for item in menu_items %}
+                <div class="menu-card">
+                    <h3>{{ item.name }}</h3>
+                    <p>{{ item.description }}</p>
+                    <span>${{ item.price }}</span>
+                    <button class="btn" onclick="addToCart('{{ item.id }}', '{{ item.name }}', '{{ item.price }}')">Add to Cart</button>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- Added a visible checkout button so the checkout function can be triggered -->
+            <button class="btn" style="margin-top: 20px;" onclick="checkout()">Checkout Cart</button>
+        </section>
+    </main>
+
+    <!-- Pass Django's CSRF token natively into Javascript context cleanly -->
+    <script>
+        const CSRF_TOKEN = "{{ csrf_token }}";
+    </script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html> -->

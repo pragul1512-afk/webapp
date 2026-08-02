@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} - Admin{% endblock %}
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h1>{{ title }}</h1>
+          <form method="post">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">{{ form.name.label(class_='form-label') }}{{ form.name(class_='form-control') }}</div>
+            <div class="mb-3">{{ form.description.label(class_='form-label') }}{{ form.description(class_='form-control', rows=3) }}</div>
+            <button class="btn btn-primary" type="submit">Save</button>
+            <a class="btn btn-secondary" href="{{ url_for('admin.categories') }}">Cancel</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

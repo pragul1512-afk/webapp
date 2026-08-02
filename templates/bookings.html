@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Booking History - Restaurant System{% endblock %}
+{% block content %}
+  <h1>My Bookings</h1>
+  {% if bookings %}
+    <div class="table-responsive">
+      <table class="table table-hover mt-3">
+        <thead class="table-light">
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Table</th>
+            <th>Guests</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for booking in bookings %}
+            <tr>
+              <td>{{ booking.booking_date.strftime('%Y-%m-%d') }}</td>
+              <td>{{ booking.booking_time.strftime('%H:%M') }}</td>
+              <td>{{ booking.table.table_number }}</td>
+              <td>{{ booking.guests }}</td>
+              <td>{{ booking.status }}</td>
+              <td>
+                {% if booking.status not in ['Cancelled', 'Rejected'] %}
+                  <form method="post" action="{{ url_for('main.cancel_booking', booking_id=booking.id) }}" class="d-inline">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button class="btn btn-sm btn-danger" type="submit">Cancel</button>
+                  </form>
+                {% else %}
+                  <span class="text-muted">No actions</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="alert alert-info">You have no bookings yet. Reserve your table now.</div>
+  {% endif %}
+{% endblock %}

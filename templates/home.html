@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Home - Restaurant System{% endblock %}
+{% block content %}
+<div class="hero py-5 text-center text-white" style="background: linear-gradient(135deg, #2d2d72, #6a11cb);">
+  <div class="container">
+    <h1 class="display-5 fw-bold">Welcome to Your Favorite Dining Destination</h1>
+    <p class="lead">Reserve tables, order delicious food online, and track your orders with a modern restaurant experience.</p>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('main.menu') }}">View Menu</a>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-lg-8">
+    <h2>Featured Dishes</h2>
+    <div class="row g-3">
+      {% for item in featured %}
+      <div class="col-md-6">
+        <div class="card h-100">
+          {% if item.image_filename %}
+            <img src="{{ url_for('static', filename=item.image_filename) }}" class="card-img-top" alt="{{ item.name }}">
+          {% else %}
+            <div class="image-placeholder">No image available</div>
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ item.name }}</h5>
+            <p class="card-text">{{ item.description }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="text-primary fw-bold">{{ item.price|format_currency }}</span>
+              <form action="{{ url_for('main.add_to_cart', item_id=item.id) }}" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-sm btn-outline-primary">Add to Cart</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card p-4 shadow-sm">
+      <h3>Quick Actions</h3>
+      <p>Everything you need in one place: browse the menu, reserve a table, and checkout in seconds.</p>
+      <a class="btn btn-outline-secondary w-100 mb-2" href="{{ url_for('main.book_table') }}">Book a Table</a>
+      <a class="btn btn-outline-secondary w-100" href="{{ url_for('main.cart') }}">Open Cart</a>
+    </div>
+  </div>
+</div>
+
+<div class="mt-5">
+  <h2>Browse Categories</h2>
+  <div class="d-flex flex-wrap gap-2">
+    {% for category in categories %}
+      <a class="btn btn-sm btn-outline-dark" href="{{ url_for('main.menu', category=category.id) }}">{{ category.name }}</a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

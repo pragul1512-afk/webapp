@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Sales Reports - Admin{% endblock %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Sales Reports</h1>
+    <a class="btn btn-secondary" href="{{ url_for('admin.dashboard') }}">Dashboard</a>
+  </div>
+  <div class="row g-3 mb-4">
+    <div class="col-md-4"><div class="card shadow-sm p-3"><h5>Monthly Sales</h5><p class="display-6">{{ monthly_sales|format_currency }}</p></div></div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h4>Recent Payments</h4>
+          <ul class="list-group list-group-flush">
+            {% for payment in recent_sales %}
+              <li class="list-group-item">
+                <strong>{{ payment.amount|format_currency }}</strong><br>
+                <small>{{ payment.method }} · {{ payment.paid_at.strftime('%Y-%m-%d %H:%M') if payment.paid_at else 'Pending' }}</small>
+              </li>
+            {% else %}
+              <li class="list-group-item text-muted">No successful payments yet.</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h4>Daily Sales Breakdown</h4>
+          <ul class="list-group list-group-flush">
+            {% for row in daily_report %}
+              <li class="list-group-item d-flex justify-content-between">
+                <span>{{ row.date }}</span>
+                <strong>{{ row.total|format_currency }}</strong>
+              </li>
+            {% else %}
+              <li class="list-group-item text-muted">No daily sales data available.</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
