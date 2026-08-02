@@ -5,6 +5,7 @@ __pycache__/
 instance/
 .env
 *.db
+*.sqlite3
 restaurant.db
 venv/
 .env.*
