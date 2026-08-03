@@ -49,7 +49,7 @@ api_bp = Blueprint('api', __name__)
 def index():
     categories = FoodCategory.query.order_by(FoodCategory.name).all()
     featured = FoodItem.query.filter_by(is_available=True).order_by(FoodItem.created_at.desc()).limit(8).all()
-    return render_template('home.html', categories=categories, featured=featured)
+    return render_template('index.html', categories=categories, featured=featured)
 
 
 @main_bp.route('/menu')
