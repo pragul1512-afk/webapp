@@ -21,3 +21,16 @@ def calculate_cart_totals(cart_items):
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg', 'webp', 'gif'}
+
+MENU_IMAGE_FILENAMES = {
+    'Bruschetta': 'images/Bruschetta.jpg',
+    'Garlic Fries': 'images/Garlic Fries.jpg',
+    'Grilled Salmon': 'images/Grilled Salmon.jpg',
+    'Spicy Chicken Curry': 'images/Spicy Chicken Curry.jpg',
+    'Chocolate Lava Cake': 'images/Chocolate Lava Cake.jpg',
+    'Classic Lemonade': 'images/Classic Lemonade.jpg',
+}
+
+
+def get_menu_item_image_filename(name):
+    return MENU_IMAGE_FILENAMES.get(name)
